@@ -9,17 +9,23 @@ import UIKit
 
 class ViewController: UIViewController {
 	
-	private let viewA = UIView()
-	private let viewB = UIView()
-	private let viewC = UIView()
-	private let viewD = UIView()
-	private let viewE = UIView()
+	private let viewA = CustomView(bgColor: .lightGray, textLabel: "A")
+	private let viewB = CustomView(bgColor: .red, textLabel: "B")
+	private let viewC = CustomView(bgColor: .blue, textLabel: "C")
+	private let viewD = CustomView(bgColor: .yellow, textLabel: "D")
+	private let viewE = CustomView(bgColor: .green, textLabel: "E")
+
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		addSubViews()
-		setupViews()
-		addLabels()
+		view.backgroundColor = .white
+        
+        addViewLabel(to: view, text: "VIEW")
+        
+        viewA.delegate = self
+        view.getView(viewA)
+        
 		setupLayout()
 	}
 }
@@ -33,43 +39,33 @@ private extension ViewController {
 		viewB.addSubview(viewD)
 		viewC.addSubview(viewE)
 	}
-	
-	func setupViews() {
-		view.backgroundColor = .white
-		
-		viewA.backgroundColor = .lightGray
-		viewB.backgroundColor = .red
-		viewC.backgroundColor = .blue
-		viewD.backgroundColor = .yellow
-		viewE.backgroundColor = .green
-	}
-	
-	func addLabels() {
-		addLabel(to: viewA, text: "A")
-		addLabel(to: viewB, text: "B")
-		addLabel(to: viewC, text: "C")
-		addLabel(to: viewD, text: "D")
-		addLabel(to: viewE, text: "E")
-	}
-	
 }
+
+/* extension ViewController: ICustomViewDeligate {
+    func getTappedView(_ viewName: String) {
+        viewName =  {
+            
+        }
+    }
+
+}
+*/
 
 // MARK: -> Private Methods
 private extension ViewController {
-	func addLabel(to view: UIView, text: String) {
-		let label = UILabel()
-		label.text = text
-		label.font = UIFont.boldSystemFont(ofSize: 24)
-		label.textColor = .black
-		label.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(label)
-		
+	func addViewLabel(to view: UIView, text: String) {
+		let viewLabel = UILabel()
+		viewLabel.text = text
+		viewLabel.font = UIFont.boldSystemFont(ofSize: 50)
+		viewLabel.textColor = .black
+		viewLabel.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(viewLabel)
+
 		NSLayoutConstraint.activate([
-			label.topAnchor.constraint(equalTo: view.topAnchor, constant: 5),
-			label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5)
+			viewLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
+			viewLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 		])
 	}
-	
 }
 
 private extension ViewController {
