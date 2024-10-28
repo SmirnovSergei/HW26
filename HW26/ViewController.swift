@@ -21,10 +21,17 @@ class ViewController: UIViewController {
 		addSubViews()
 		view.backgroundColor = .white
         
-        addViewLabel(to: view, text: "VIEW")
-        
         viewA.delegate = self
-        view.getView(viewA)
+        viewB.delegate = self
+        viewC.delegate = self
+        viewD.delegate = self
+        viewE.delegate = self
+        
+        viewA.nameInstance = "A"
+        viewB.nameInstance = "B"
+        viewC.nameInstance = "C"
+        viewD.nameInstance = "D"
+        viewE.nameInstance = "E"
         
 		setupLayout()
 	}
@@ -33,23 +40,19 @@ class ViewController: UIViewController {
 private extension ViewController {
 	func addSubViews() {
 		view.addSubview(viewA)
-		
-		viewA.addSubview(viewB)
-		viewA.addSubview(viewC)
-		viewB.addSubview(viewD)
-		viewC.addSubview(viewE)
+        view.addSubview(viewB)
+        view.addSubview(viewC)
+        view.addSubview(viewD)
+        view.addSubview(viewE)
 	}
 }
 
-/* extension ViewController: ICustomViewDeligate {
-    func getTappedView(_ viewName: String) {
-        viewName =  {
-            
-        }
+extension ViewController: ICustomViewDeligate {
+    func getViewName(_ viewName: String) {
+        print(viewName)
+        //        addViewLabel(to: view, text: viewName)
     }
-
 }
-*/
 
 // MARK: -> Private Methods
 private extension ViewController {
