@@ -30,11 +30,11 @@ class CustomView: UIView {
 	override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 		let view = super.hitTest(point, with: event)
 
-        if let tappedView = view as? CustomView {
-            delegate?.getViewName(tappedView.nameInstance ?? "Значение nil")
-        }
+		if let tappedView = view as? CustomView {
+			delegate?.getViewName(tappedView.nameInstance ?? "Значение nil")
+		}
 
-        return nil
+		return view
 	}
 
 	func addLabel(to view: UIView, text: String) {

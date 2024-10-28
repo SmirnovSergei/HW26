@@ -14,6 +14,7 @@ class ViewController: UIViewController {
 	private let viewC = CustomView(bgColor: .blue, textLabel: "C")
 	private let viewD = CustomView(bgColor: .yellow, textLabel: "D")
 	private let viewE = CustomView(bgColor: .green, textLabel: "E")
+    private let viewLabel = UILabel()
 
 	
 	override func viewDidLoad() {
@@ -33,6 +34,9 @@ class ViewController: UIViewController {
         viewD.nameInstance = "D"
         viewE.nameInstance = "E"
         
+        setupViewLabel()
+        view.addSubview(viewLabel)
+        
 		setupLayout()
 	}
 }
@@ -49,25 +53,15 @@ private extension ViewController {
 
 extension ViewController: ICustomViewDeligate {
     func getViewName(_ viewName: String) {
-        print(viewName)
-        //        addViewLabel(to: view, text: viewName)
+        viewLabel.text = viewName
     }
 }
 
 // MARK: -> Private Methods
 private extension ViewController {
-	func addViewLabel(to view: UIView, text: String) {
-		let viewLabel = UILabel()
-		viewLabel.text = text
+	func setupViewLabel() {
 		viewLabel.font = UIFont.boldSystemFont(ofSize: 50)
 		viewLabel.textColor = .black
-		viewLabel.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(viewLabel)
-
-		NSLayoutConstraint.activate([
-			viewLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
-			viewLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-		])
 	}
 }
 
@@ -78,6 +72,7 @@ private extension ViewController {
 		viewC.translatesAutoresizingMaskIntoConstraints = false
 		viewD.translatesAutoresizingMaskIntoConstraints = false
 		viewE.translatesAutoresizingMaskIntoConstraints = false
+        viewLabel.translatesAutoresizingMaskIntoConstraints = false
 		
 		NSLayoutConstraint.activate([
 			
@@ -105,6 +100,9 @@ private extension ViewController {
 			viewE.centerXAnchor.constraint(equalTo: viewC.centerXAnchor),
 			viewE.widthAnchor.constraint(equalToConstant: 80),
 			viewE.heightAnchor.constraint(equalToConstant: 120),
+            
+            viewLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
+            viewLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 		])
 	}
 }
