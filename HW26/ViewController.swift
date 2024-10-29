@@ -51,8 +51,9 @@ private extension ViewController {
 	}
 }
 
-extension ViewController: ICustomViewDeligate {
+extension ViewController: ICustomViewDelegate {
     func getViewName(_ viewName: String) {
+        print(viewName)
         viewLabel.text = viewName
     }
 }

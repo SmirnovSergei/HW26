@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol ICustomViewDeligate {
+protocol ICustomViewDelegate {
 	func getViewName(_ viewName: String)
 }
 
 class CustomView: UIView {
 	var nameInstance: String?
 
-	var delegate: ICustomViewDeligate?
+	var delegate: ICustomViewDelegate?
 
 	init(bgColor: UIColor, textLabel: String) {
 		super.init(frame: .zero)
