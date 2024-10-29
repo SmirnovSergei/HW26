@@ -14,51 +14,52 @@ class ViewController: UIViewController {
 	private let viewC = CustomView(bgColor: .blue, textLabel: "C")
 	private let viewD = CustomView(bgColor: .yellow, textLabel: "D")
 	private let viewE = CustomView(bgColor: .green, textLabel: "E")
-    private let viewLabel = UILabel()
+	private let viewLabel = UILabel()
 
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		addSubViews()
-		view.backgroundColor = .white
-        
-        viewA.delegate = self
-        viewB.delegate = self
-        viewC.delegate = self
-        viewD.delegate = self
-        viewE.delegate = self
-        
-        viewA.nameInstance = "A"
-        viewB.nameInstance = "B"
-        viewC.nameInstance = "C"
-        viewD.nameInstance = "D"
-        viewE.nameInstance = "E"
-        
-        setupViewLabel()
-        view.addSubview(viewLabel)
-        
+
+		setupViews()
 		setupLayout()
 	}
 }
 
+// MARK: -> Private Methods
 private extension ViewController {
-	func addSubViews() {
-		view.addSubview(viewA)
-        view.addSubview(viewB)
-        view.addSubview(viewC)
-        view.addSubview(viewD)
-        view.addSubview(viewE)
+	func setupViews() {
+		view.backgroundColor = .white
+
+		addSubviews(viewA, viewB, viewC, viewD, viewE, viewLabel)
+		setupViewLabel()
+		setCustomViewDelegate(viewA, viewB, viewC, viewD, viewE)
+
+		viewA.nameInstance = "A"
+		viewB.nameInstance = "B"
+		viewC.nameInstance = "C"
+		viewD.nameInstance = "D"
+		viewE.nameInstance = "E"
+	}
+
+	func addSubviews(_ views: UIView...) {
+		for currentView in views {
+			view.addSubview(currentView)
+		}
 	}
 }
 
 extension ViewController: ICustomViewDelegate {
-    func getViewName(_ viewName: String) {
-        print(viewName)
-        viewLabel.text = viewName
-    }
+	func getViewName(_ viewName: String) {
+		viewLabel.text = viewName
+	}
+
+	func setCustomViewDelegate(_ views: CustomView...) {
+		for customView in views {
+			customView.delegate = self
+		}
+	}
 }
 
-// MARK: -> Private Methods
 private extension ViewController {
 	func setupViewLabel() {
 		viewLabel.font = UIFont.boldSystemFont(ofSize: 50)
@@ -68,15 +69,16 @@ private extension ViewController {
 
 private extension ViewController {
 	func setupLayout() {
-		viewA.translatesAutoresizingMaskIntoConstraints = false
-		viewB.translatesAutoresizingMaskIntoConstraints = false
-		viewC.translatesAutoresizingMaskIntoConstraints = false
-		viewD.translatesAutoresizingMaskIntoConstraints = false
-		viewE.translatesAutoresizingMaskIntoConstraints = false
-        viewLabel.translatesAutoresizingMaskIntoConstraints = false
+		[viewA,
+		 viewB,
+		 viewC,
+		 viewD,
+		 viewE,
+		 viewLabel].forEach {view in
+			view.translatesAutoresizingMaskIntoConstraints = false
+		}
 		
 		NSLayoutConstraint.activate([
-			
 			viewA.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
 			viewA.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
 			viewA.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
@@ -101,9 +103,9 @@ private extension ViewController {
 			viewE.centerXAnchor.constraint(equalTo: viewC.centerXAnchor),
 			viewE.widthAnchor.constraint(equalToConstant: 80),
 			viewE.heightAnchor.constraint(equalToConstant: 120),
-            
-            viewLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
-            viewLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+
+			viewLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
+			viewLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 		])
 	}
 }
