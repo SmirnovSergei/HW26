@@ -30,21 +30,21 @@ private extension ViewController {
 	func setupViews() {
 		view.backgroundColor = .white
 
-		addSubviews(viewA, viewB, viewC, viewD, viewE, viewLabel)
 		setupViewLabel()
 		setCustomViewDelegate(viewA, viewB, viewC, viewD, viewE)
+
+		view.addSubview(viewA)
+		viewA.addSubview(viewB)
+		viewA.addSubview(viewC)
+		viewB.addSubview(viewD)
+		viewC.addSubview(viewE)
+		view.addSubview(viewLabel)
 
 		viewA.nameInstance = "A"
 		viewB.nameInstance = "B"
 		viewC.nameInstance = "C"
 		viewD.nameInstance = "D"
 		viewE.nameInstance = "E"
-	}
-
-	func addSubviews(_ views: UIView...) {
-		for currentView in views {
-			view.addSubview(currentView)
-		}
 	}
 }
 

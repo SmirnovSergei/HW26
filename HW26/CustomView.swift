@@ -47,9 +47,8 @@ class CustomView: UIView {
 			for subview in subviews.reversed() {
 				let pointInSubview = subview.convert(point, from: self)
 
-				if subview.hitTest(pointInSubview, with: event) != nil {
-
-					return hitPoint
+				if subview.point(inside: pointInSubview, with: event){
+					return true
 				}
 			}
 			return hitPoint
